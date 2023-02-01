@@ -1,0 +1,8 @@
+<%= form_with(model: [@post, @post.comments.build]) do |f| %>
+                 <%= f.hidden_field :post_id %>
+                <%= f.text_area :txt %>
+
+                <div class="actions">
+                    <%= f.submit %>
+                </div> 
+            <% end %>

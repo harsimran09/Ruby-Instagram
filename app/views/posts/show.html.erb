@@ -1,0 +1,42 @@
+<div class="post-show row">
+  <div class="col-md-8">
+    <%=image_tag @post.image, class: 'image' %>
+  </div>
+  <div class="col-md-4">
+    <div class="user">
+      <div class="avatar">
+        <% if @post.user.avatar.attached? %>
+          <%= link_to user_path(@post.user) do %>
+            <%= image_tag @post.user.avatar %>
+          <% end %>
+        <% end %>
+      </div>
+      <%= link_to @post.user.username, user_path(@post.user), class: 'username' %>
+    </div>
+    <div class="description">
+<%= @post.caption%>
+    </div>
+    <div>
+        <div>
+            <u><b>Comments</b></u>
+            <br>
+            <%- @post.comments.each do |comment|%>             
+                <b><%= comment.user&.username%> </b>
+                <%= comment.txt %>
+                <br>
+            <% end %>
+        </div>
+        <div>
+
+            <%= render "comments/upload_form", comment: @comment%>  
+
+            
+        </div>
+    </div>
+    <div class="delete">
+      <% if current_user.posts.exists?(@post.id) %>
+        <%= button_to 'Remove', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </div>
+  </div>
+</div>
